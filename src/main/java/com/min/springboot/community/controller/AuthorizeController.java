@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Controller
 public class AuthorizeController {
@@ -28,6 +30,15 @@ public class AuthorizeController {
     private String redirectUrl;
 
     /**
+     * 第一步,获取重定向github的地址,直接重定向,
+     * 实现Get调用https://github.com/login/oauth/authorize,获取code,并直接回调callback接口
+     */
+    @GetMapping("github/login")
+    public String  githubLogin(){
+        return githubProvider.getRedirectUrl();
+    }
+
+    /**
      * github第一步,点击网页的登录按钮后跳转到github授权页面https://github.com/login/oauth/authorize
      * 传递的参数为https://github.com/login/oauth/authorize?client_id=06ee2de97bc15500c303&redirect_uri=http://localhost:8887/callback&scope=user&state=1
      * github会回调接口,这个接口就是github中定义的回调接口.
@@ -35,7 +46,7 @@ public class AuthorizeController {
      * 第二步.根据code获取token
      * 第三步.根据token获取用户信息
      */
-    @GetMapping("callback")
+    @GetMapping("github/callback")
     public String callback(@RequestParam("code") String code,
                            @RequestParam("state") String state,
                             HttpServletRequest request) {
