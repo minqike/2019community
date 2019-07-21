@@ -18,10 +18,10 @@ public class GithubProvider {
     private String redirectUrl;
     /**
      * 获取重定向github的字符串
-     *https://github.com/login/oauth/authorize?client_id=06ee2de97bc15500c303&redirect_uri=http://localhost:8887/callback&scope=user&state=1
+     *https://github.com/login/oauth/authorize?client_id=06ee2de97bc15500c303&redirect_uri=http://localhost:8887/github/callback&scope=user&state=1
      */
     public String getRedirectUrl() {
-        return "redirect:https://github.com/login/oauth/authorize?client_id=" + clientId
+        return "https://github.com/login/oauth/authorize?client_id=" + clientId
                         + "&redirect_uri=" + redirectUrl
                         + "&scope=user&state=1";
     }
