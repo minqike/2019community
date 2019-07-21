@@ -15,8 +15,8 @@ public interface UserMapper {
     User findByToken(String token);
 
 
-    @Insert("insert into user(account_id,name,token,gmt_create,gmt_modified)values(" +
-            "#{accountId},#{name},#{token},#{gmtCreate},#{gmtModified}" +
+    @Insert("insert into user(account_id,name,token,bio,gmt_create,gmt_modified)values(" +
+            "#{accountId},#{name},#{token},#{bio},#{gmtCreate},#{gmtModified}" +
             ")")
     int insert(User user);
 }
