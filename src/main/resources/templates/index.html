@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
-    <link rel="stylesheet" href="bootstrap-3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bootstrap-3.3.7/css/bootstrap-theme.min.css">
-    <script src="jquery-3.4.1/js/jquery.min.js" type="application/javascript"></script>
-    <script src="bootstrap-3.3.7/js/bootstrap.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/bootstrap-3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap-3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/jquery-3.4.1/js/jquery.min.js" type="application/javascript"></script>
+    <script src="/bootstrap-3.3.7/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -43,6 +44,36 @@
 </nav>
 <div>
     <h1 >问题个数:  <span th:text=" ${questionCount}"></span></h1>
+    <div class="container-fluid" style="margin: 10px">
+        <div class="row" >
+            <div class="col-lg-9 col-md-12 col-xs-12">
+                <h2><span class="glyphicon glyphicon-list-alt" aria-hidden="false">发现</span></h2>
+                <hr/>
+
+                <div class="media" th:each="question:${questions}" >
+                    <div class="media-left media-middle">
+                        <a href="#">
+                            <img class="media-object" id="my-avatarUrl"  src="https://avatars2.githubusercontent.com/u/26165564?v=4" th:src="${question.getAvatarUrl()}">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading" th:text="${question.getTitle()}">怎么快速学会springboot</h4>
+                        <div th:text="${question.getDescription()}">可以好好学习依稀艾伦秀</div><br><br>
+                        <div class="my_graytext" th:text="${question.getCommentCount()}+'个回复,'+${question.getViewCount()}+'次浏览,发布时间:'+${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"> 2个回复,31次浏览,1小时前</div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <div class="col-lg-3 col-md-12 col-xs-12">
+                <div>
+                    <h3>热门话题</h3>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

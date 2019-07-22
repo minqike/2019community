@@ -1,5 +1,6 @@
 package com.min.springboot.community.controller;
 
+import com.min.springboot.community.dto.QuestionDTO;
 import com.min.springboot.community.mapper.UserMapper;
 import com.min.springboot.community.model.User;
 import com.min.springboot.community.service.QuestionService;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
+import java.util.List;
 
 @Controller
 public class IndexController {
@@ -37,7 +38,10 @@ public class IndexController {
                 }
             }
         }
+        List<QuestionDTO> questionList = questionService.listQuestionDTO();
+        model.addAttribute("questions",questionList);
         model.addAttribute("questionCount",questionService.getQuestionCount());
+
         return "index";
     }
 

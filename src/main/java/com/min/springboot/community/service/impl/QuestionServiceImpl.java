@@ -1,6 +1,9 @@
 package com.min.springboot.community.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.min.springboot.community.dto.QuestionDTO;
 import com.min.springboot.community.mapper.QuestionMapper;
+import com.min.springboot.community.mapper.UserMapper;
 import com.min.springboot.community.model.Question;
 import com.min.springboot.community.model.User;
 import com.min.springboot.community.service.QuestionService;
@@ -8,9 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Service
-public class QuestionServiceImpl implements QuestionService {
+public class QuestionServiceImpl  extends ServiceImpl<QuestionMapper, Question>  implements QuestionService {
     @Autowired
     private  QuestionMapper questionMapper;
 
@@ -34,5 +38,9 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public int getQuestionCount() {
         return questionMapper.selectCount(null);
+    }
+
+    public List<QuestionDTO> listQuestionDTO(){
+        return  questionMapper.listQuestionDTO();
     }
 }
