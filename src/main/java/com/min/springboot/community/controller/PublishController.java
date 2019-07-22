@@ -29,7 +29,7 @@ public class PublishController {
             Question question,
             Model model,
             HttpServletRequest request){
-        
+
 
         questionService.insert(question,request);
         return "redirect:/";

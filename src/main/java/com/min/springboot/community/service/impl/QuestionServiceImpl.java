@@ -27,11 +27,12 @@ public class QuestionServiceImpl implements QuestionService {
         newquestion.setLikeCount(0);
         newquestion.setGmtCreate(System.currentTimeMillis());
         newquestion.setGmtModified(newquestion.getGmtCreate());
+
         return questionMapper.insert(newquestion);
     }
 
     @Override
     public int getQuestionCount() {
-        return questionMapper.getQuestionCount();
+        return questionMapper.selectCount(null);
     }
 }
