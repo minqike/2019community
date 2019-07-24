@@ -26,3 +26,7 @@ body{
 #my-avatarUrl {
     height: 50px;
 }
+
+.my-text-center{
+    text-align: center;
+}
