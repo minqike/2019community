@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
+    <title>我的问题</title>
     <link rel="stylesheet" href="/bootstrap-3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/community.css">
@@ -17,7 +17,7 @@
         <div class="container-fluid" style="margin: 10px">
             <div class="row" >
                 <div class="col-lg-9 col-md-12 col-xs-12">
-                    <h3><span class="glyphicon glyphicon-list-alt" aria-hidden="false">发现</span></h3>
+                    <h3><span class="glyphicon glyphicon-list-alt" aria-hidden="false">我的问题</span></h3>
                     <hr/>
 
                     <div class="media" th:each="question:${questions}" >
@@ -36,29 +36,39 @@
                         <div class="">
                             当前第 [[${pageInfo.pageNum}]]页,共 [[${pageInfo.pages}]] 页.一共 [[${pageInfo.total}]] 条记录
                         </div>
-                    <!--********************分页部分************************-->
+                        <!--********************分页部分************************-->
                         <!--比较好看的分页-->
                         <div class="">
                             <!--url地址可以作为参数传入-->
-                            <div  th:replace="common/page::pagination('/index')"></div>
+                            <div  th:replace="common/page::pagination('/profile/questions')"></div>
                         </div>
 
                         <!--简单分页-->
                         <!--<div class="center-block">-->
-                            <!--<div  th:replace="simplePagination::pagination"></div>-->
+                        <!--<div  th:replace="simplePagination::pagination"></div>-->
                         <!--</div>-->
-                    <!--*****************************************************-->
+                        <!--*****************************************************-->
 
                     </div>
 
                 </div>
                 <div class="col-lg-3 col-md-12 col-xs-12">
-                    <div>
-                        <h3>热门话题</h3>
-                    </div>
+                    <ul class="list-group" style="margin: 70px auto">
+                        <li class="list-group-item">
+                            <a href="/profile/questions">我的提问</a>
+                            <span class="badge">14</span>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/profile/questions">我的关注</a>
+                            <span class="badge">14</span>
+
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         </div>
     </div>
+
 </body>
 </html>

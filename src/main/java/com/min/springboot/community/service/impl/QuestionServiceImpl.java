@@ -49,4 +49,14 @@ public class QuestionServiceImpl  extends ServiceImpl<QuestionMapper, Question> 
         return info;
 
     }
+
+    @Override
+    public PageInfo<QuestionDTO> listMyQuestionDTO(int page, int size, Long uid) {
+        PageHelper.startPage(page,size);
+        List<QuestionDTO> dtoList = questionMapper.listMyQuestionDTO(uid);
+        PageInfo<QuestionDTO> info = new PageInfo<>(dtoList);
+        return info;
+    }
+
+
 }

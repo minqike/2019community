@@ -15,4 +15,6 @@ public interface QuestionService extends IService<Question> {
 
     int getQuestionCount();
     PageInfo<QuestionDTO> listQuestionDTO(int page,int size);
+
+    PageInfo<QuestionDTO> listMyQuestionDTO(int page, int size,Long uid);
 }
