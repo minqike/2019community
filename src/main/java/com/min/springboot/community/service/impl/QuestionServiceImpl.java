@@ -1,6 +1,8 @@
 package com.min.springboot.community.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.min.springboot.community.dto.QuestionDTO;
 import com.min.springboot.community.mapper.QuestionMapper;
 import com.min.springboot.community.mapper.UserMapper;
@@ -40,7 +42,11 @@ public class QuestionServiceImpl  extends ServiceImpl<QuestionMapper, Question> 
         return questionMapper.selectCount(null);
     }
 
-    public List<QuestionDTO> listQuestionDTO(){
-        return  questionMapper.listQuestionDTO();
+    public PageInfo<QuestionDTO> listQuestionDTO(int page, int size){
+        PageHelper.startPage(page,size);
+        List<QuestionDTO> dtoList = questionMapper.listQuestionDTO();
+        PageInfo<QuestionDTO> info = new PageInfo<>(dtoList);
+        return info;
+
     }
 }

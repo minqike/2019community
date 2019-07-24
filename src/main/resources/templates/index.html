@@ -62,9 +62,23 @@
                         <div class="my_graytext" th:text="${question.getCommentCount()}+'个回复,'+${question.getViewCount()}+'次浏览,发布时间:'+${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"> 2个回复,31次浏览,1小时前</div>
                     </div>
                 </div>
+                <div class="modal-footer no-margin-top">
+                    <div class="col-md-12">
+                        当前第 [[${pageInfo.pageNum}]]页,共 [[${pageInfo.pages}]] 页.一共 [[${pageInfo.total}]] 条记录
+                    </div>
 
+                    <!--比较好看的分页-->
+                    <div class="col-md-12">
+                        <div  th:replace="page::pagination"></div>
+                    </div>
 
+                    <!--简单分页-->
+                    <div class="col-md-12">
+                        <div  th:replace="simplePagination::pagination"></div>
+                    </div>
+<!--************************************************************************************-->
 
+                </div>
 
             </div>
             <div class="col-lg-3 col-md-12 col-xs-12">

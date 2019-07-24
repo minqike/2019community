@@ -1,6 +1,7 @@
 package com.min.springboot.community.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
 import com.min.springboot.community.dto.QuestionDTO;
 import com.min.springboot.community.model.Question;
 import com.min.springboot.community.model.User;
@@ -13,5 +14,5 @@ public interface QuestionService extends IService<Question> {
     int insert(Question question, HttpServletRequest request);
 
     int getQuestionCount();
-    List<QuestionDTO> listQuestionDTO();
+    PageInfo<QuestionDTO> listQuestionDTO(int page,int size);
 }
