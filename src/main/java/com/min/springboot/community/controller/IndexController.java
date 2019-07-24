@@ -52,11 +52,4 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/hello")
-    public String hello(@RequestParam(value = "name", required = false) String name, Model model) {
-        model.addAttribute("name", name);
-        return "hello";
-    }
-
-
 }
