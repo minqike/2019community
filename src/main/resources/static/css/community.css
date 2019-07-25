@@ -31,3 +31,7 @@ body{
 .my-text-center{
     text-align: center;
 }
+
+#question-right{
+    margin-top: 20px;
+}

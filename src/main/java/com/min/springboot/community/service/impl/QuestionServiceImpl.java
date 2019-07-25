@@ -11,6 +11,7 @@ import com.min.springboot.community.model.User;
 import com.min.springboot.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -21,20 +22,32 @@ public class QuestionServiceImpl  extends ServiceImpl<QuestionMapper, Question> 
     private  QuestionMapper questionMapper;
 
     @Override
-    public int insert(Question question , HttpServletRequest request) {
+    @Transactional
+    public int insert(Question question , HttpServletRequest request) throws Exception {
         User user = (User) request.getSession().getAttribute("user");
         Question newquestion = new Question();
-        newquestion.setCreator(user.getId());
+        if (question.getId()!=null) {
+            newquestion = questionMapper.selectById(question.getId());
+            if (newquestion.getCreator()!=user.getId()){
+                throw new Exception("没有权限");
+            }
+        }
         newquestion.setTitle(question.getTitle());
         newquestion.setDescription(question.getDescription());
         newquestion.setTag(question.getTag());
-        newquestion.setCommentCount(0);
-        newquestion.setViewCount(0);
-        newquestion.setLikeCount(0);
-        newquestion.setGmtCreate(System.currentTimeMillis());
-        newquestion.setGmtModified(newquestion.getGmtCreate());
+        if (question.getId()!=null) {
+            newquestion.setGmtModified(newquestion.getGmtCreate());
+            return questionMapper.updateById(newquestion);
+        }else{
+            newquestion.setCreator(user.getId());
+            newquestion.setCommentCount(0);
+            newquestion.setViewCount(0);
+            newquestion.setLikeCount(0);
+            newquestion.setGmtCreate(System.currentTimeMillis());
+            newquestion.setGmtModified(newquestion.getGmtCreate());
+            return questionMapper.insert(newquestion);
+        }
 
-        return questionMapper.insert(newquestion);
     }
 
     @Override

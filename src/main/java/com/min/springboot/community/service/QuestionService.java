@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface QuestionService extends IService<Question> {
 
-    int insert(Question question, HttpServletRequest request);
+    int insert(Question question, HttpServletRequest request) throws Exception;
 
     int getQuestionCount();
     PageInfo<QuestionDTO> listQuestionDTO(int page,int size);

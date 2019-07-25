@@ -19,24 +19,26 @@
                 <hr/>
 
                 <form action="/question/publish" method="post">
+                    <input name="id" hidden="hidden" type="text" th:value="${question.id}">
+
                     <div class="form-group">
                         <h4>
-                            <lable for="title">问题(简单扼要):</lable>
+                            <lable for="title" >问题(简单扼要):</lable>
                         </h4>
-                        <input type="text" name="title" class="form-control" id="title" placeholder="问题标题...">
+                        <input type="text" name="title" class="form-control" id="title" placeholder="问题标题..." th:value="${question.title}">
                     </div>
                     <div class="form-group">
                         <h4>
                             <lable for="description">问题描述:</lable>
                         </h4>
                         <textarea class="form-control" style="height: 300px" id="description" name="description"
-                                  placeholder="描述..."></textarea>
+                                  placeholder="描述..." th:text="${question.description}"></textarea>
                     </div>
                     <div class="form-group">
                         <h4>
                             <lable for="tag">添加标签:</lable>
                         </h4>
-                        <input type="text" class="form-control" id="tag" name="tag" placeholder="标签(逗号隔开)">
+                        <input type="text" class="form-control" id="tag" name="tag" placeholder="标签(逗号隔开)" th:value="${question.tag}">
                     </div>
 
                     <button type="submit" class="btn btn-success btn-publish" >发布问题</button>

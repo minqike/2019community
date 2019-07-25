@@ -17,7 +17,7 @@
         <div class="container-fluid" style="margin: 10px">
             <div class="row" >
                 <div class="col-lg-9 col-md-12 col-xs-12">
-                    <h3><span class="glyphicon glyphicon-list-alt" aria-hidden="false">发现</span></h3>
+                    <h3><span class="glyphicon glyphicon-list-alt" aria-hidden="false"> 发现</span></h3>
                     <hr/>
 
                     <div class="media" th:each="question:${questions}" >
@@ -27,7 +27,9 @@
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading" th:text="${question.getTitle()}">怎么快速学会springboot</h4>
+                            <h4 class="media-heading" >
+                                <a th:href="@{'/question/'+${question.id}}" th:text="${question.getTitle()}">
+                                怎么快速学会springboot</a></h4>
                             <div th:text="${question.getDescription()}">可以好好学习依稀艾伦秀</div><br><br>
                             <div class="my_graytext" th:text="${question.getCommentCount()}+'个回复,'+${question.getViewCount()}+'次浏览,发布时间:'+${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"> 2个回复,31次浏览,1小时前</div>
                         </div>
