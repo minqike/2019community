@@ -26,6 +26,10 @@ public class QuestionController {
                            Model model){
         Question question=questionService.getById(id);
         User user = userService.getById(question.getCreator());
+        if(user==null){
+            user=new User();
+            user.setAvatarUrl("");
+        }
         model.addAttribute("quser",user);
         model.addAttribute("question",question);
         return "question";

@@ -36,7 +36,7 @@ public class QuestionServiceImpl  extends ServiceImpl<QuestionMapper, Question> 
         newquestion.setDescription(question.getDescription());
         newquestion.setTag(question.getTag());
         if (question.getId()!=null) {
-            newquestion.setGmtModified(newquestion.getGmtCreate());
+            newquestion.setGmtModified(System.currentTimeMillis());
             return questionMapper.updateById(newquestion);
         }else{
             newquestion.setCreator(user.getId());

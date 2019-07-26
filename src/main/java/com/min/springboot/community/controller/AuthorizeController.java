@@ -1,10 +1,12 @@
 package com.min.springboot.community.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.min.springboot.community.dto.AccessTokenDTO;
 import com.min.springboot.community.dto.GithubUser;
 import com.min.springboot.community.mapper.UserMapper;
 import com.min.springboot.community.model.User;
 import com.min.springboot.community.provider.GithubProvider;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -75,18 +77,37 @@ public class AuthorizeController {
         System.out.println(githubUser);
         if (githubUser != null && githubUser.getId() != null) {
             // 登录成功
-
-            //3.2.2 把数据存储到数据库
             User user = new User();
+
+            QueryWrapper<User> wrapper = new QueryWrapper<>();
+            wrapper.eq("account_id", "github" +githubUser.getId());
+            user = userMapper.selectOne(wrapper);
             String token=UUID.randomUUID().toString();
-            user.setAccountId(githubUser.getId().toString());
-            user.setName(githubUser.getName());
-            user.setToken(token);
-            user.setBio(githubUser.getBio());
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreate());
-            user.setAvatarUrl(githubUser.getAvatarUrl());
-            userMapper.insert(user);
+            User user1 = new User();
+            if (user != null) {
+                BeanUtils.copyProperties(user,user1);
+                user1.setAvatarUrl(githubUser.getAvatarUrl());
+                user1.setBio(githubUser.getBio());
+                user1.setName(githubUser.getName());
+                user1.setToken(token);
+                user1.setGmtModified(System.currentTimeMillis());
+                userMapper.updateById(user1);
+            }else {
+                //3.2.2 把数据存储到数据库
+                user1.setAccountId("github" + githubUser.getId().toString());
+                user1.setAvatarUrl(githubUser.getAvatarUrl());
+                user1.setBio(githubUser.getBio());
+                user1.setName(githubUser.getName());
+                user1.setToken(token);
+                user1.setGmtCreate(System.currentTimeMillis());
+                user1.setGmtModified(user1.getGmtCreate());
+                userMapper.insert(user1);
+
+            }
+
+
+
+
             // 3.2.3 追加cookie
             Cookie cookie = new Cookie("token", token);
             System.out.println("token="+token);
