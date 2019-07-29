@@ -105,9 +105,6 @@ public class AuthorizeController {
 
             }
 
-
-
-
             // 3.2.3 追加cookie
             Cookie cookie = new Cookie("token", token);
             System.out.println("token="+token);

@@ -1,6 +1,7 @@
 package com.min.springboot.community.controller;
 
-import com.min.springboot.community.dto.QuestionDTO;
+import com.min.springboot.community.error.MyErrorCode;
+import com.min.springboot.community.error.MyException;
 import com.min.springboot.community.model.Question;
 import com.min.springboot.community.model.User;
 import com.min.springboot.community.service.QuestionService;
@@ -25,6 +26,9 @@ public class QuestionController {
     public String question(@PathVariable("id") Long id,
                            Model model){
         Question question=questionService.getById(id);
+        if (question == null ){
+            throw  new MyException(MyErrorCode.QUESTION_NOT_FOUND);
+        }
         User user = userService.getById(question.getCreator());
         if(user==null){
             user=new User();
