@@ -2,14 +2,15 @@ package com.min.springboot.community.error;
 
 public class MyException extends RuntimeException {
     private Integer code;
-    private String msg;
+    private String message;
 
     public Integer getCode() {
         return code;
     }
 
-    public String getMsg() {
-        return msg;
+    @Override
+    public String getMessage() {
+        return message;
     }
 
     /**
@@ -18,6 +19,6 @@ public class MyException extends RuntimeException {
      */
     public MyException(IMyErrorCode errorCode) {
         this.code = errorCode.getCode();
-        this.msg = errorCode.getMsg();
+        this.message = errorCode.getMessage();
     }
 }

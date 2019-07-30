@@ -7,5 +7,5 @@ package com.min.springboot.community.error;
  */
 public interface IMyErrorCode {
     Integer getCode();
-    String getMsg();
+    String getMessage();
 }

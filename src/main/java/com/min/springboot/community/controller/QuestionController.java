@@ -34,6 +34,8 @@ public class QuestionController {
             user=new User();
             user.setAvatarUrl("");
         }
+        //增加view数
+        questionService.incView(id);
         model.addAttribute("quser",user);
         model.addAttribute("question",question);
         return "question";

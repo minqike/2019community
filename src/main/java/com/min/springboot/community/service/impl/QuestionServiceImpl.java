@@ -5,7 +5,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.min.springboot.community.dto.QuestionDTO;
 import com.min.springboot.community.mapper.QuestionMapper;
-import com.min.springboot.community.mapper.UserMapper;
 import com.min.springboot.community.model.Question;
 import com.min.springboot.community.model.User;
 import com.min.springboot.community.service.QuestionService;
@@ -71,5 +70,15 @@ public class QuestionServiceImpl  extends ServiceImpl<QuestionMapper, Question> 
         return info;
     }
 
+    @Override
+    @Transactional
+    public void incView(Long id) {
+        questionMapper.incView(id);
+    }
 
+    @Override
+    @Transactional
+    public void incComment(Long id) {
+        questionMapper.incComment(id);
+    }
 }

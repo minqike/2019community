@@ -18,8 +18,8 @@ public class PublishController {
     private  QuestionService questionService;
 
     @GetMapping("/question/publish")
-    public String publish(){
-
+    public String publish(Model model){
+        model.addAttribute("question", new Question());
         return "publish";
 
     }

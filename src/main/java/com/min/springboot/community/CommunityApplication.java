@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@EnableTransactionManagement
+//@EnableTransactionManagement  默认开启
 public class CommunityApplication {
 
     public static void main(String[] args) {
