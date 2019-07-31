@@ -2,9 +2,10 @@ body{
     background-color: #efefef;
 }
 
-.btn-publish{
+.btn-publish,btn-addcomment {
     float: right;
     margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .row{
@@ -19,6 +20,7 @@ body{
     border-bottom: 1px solid #d4d4d4;
 }
 .my_graytext{
+    margin-top: 10px;
     font-size: 12px;
     color: #999999;
 }
@@ -34,4 +36,8 @@ body{
 
 #question-right{
     margin-top: 20px;
+}
+
+.my-margin-10{
+    margin: 10px;
 }

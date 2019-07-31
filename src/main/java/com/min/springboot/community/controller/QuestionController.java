@@ -1,9 +1,11 @@
 package com.min.springboot.community.controller;
 
+import com.min.springboot.community.dto.CommentDTO;
 import com.min.springboot.community.error.MyErrorCode;
 import com.min.springboot.community.error.MyException;
 import com.min.springboot.community.model.Question;
 import com.min.springboot.community.model.User;
+import com.min.springboot.community.service.CommentService;
 import com.min.springboot.community.service.QuestionService;
 import com.min.springboot.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class QuestionController {
+
+    @Autowired
+    private CommentService commentService;
 
     @Autowired
     private  QuestionService questionService;
@@ -38,6 +43,10 @@ public class QuestionController {
         questionService.incView(id);
         model.addAttribute("quser",user);
         model.addAttribute("question",question);
+
+        //获取comment
+        CommentDTO commentDTO=commentService.getCommnets(id);
+        model.addAttribute("comments",commentDTO);
         return "question";
     }
 }

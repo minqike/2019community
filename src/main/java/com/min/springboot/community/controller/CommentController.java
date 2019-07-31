@@ -24,6 +24,10 @@ public class CommentController {
     @ResponseBody
     public R saveComment(@RequestBody CommentVo commentVo,
                          HttpServletRequest request){
+        if (request.getSession().getAttribute("user")==null){
+            return R.error(-1, "没有登录");
+        }
+
         try {
             Comment comment = commentService.save(commentVo, request);
             return R.ok(comment);
