@@ -30,7 +30,7 @@
                             <h4 class="media-heading" >
                                 <a th:href="@{'/question/'+${question.id}}" th:text="${question.getTitle()}">
                                 怎么快速学会springboot</a></h4>
-                            <div th:text="${question.getDescription()}">可以好好学习依稀艾伦秀</div><br><br>
+                            <!--<div th:text="${question.getDescription()}">可以好好学习依稀艾伦秀</div><br><br>-->
                             <div class="my_graytext" th:text="${question.getCommentCount()}+'个回复,'+${question.getViewCount()}+'次浏览,发布时间:'+${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"> 2个回复,31次浏览,1小时前</div>
                         </div>
                     </div>

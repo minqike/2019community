@@ -6,9 +6,13 @@
     <link rel="stylesheet" href="/bootstrap-3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/community.css">
+    <link rel="stylesheet" href="/editor.md-1.5.0/css/editormd.preview.css" />
     <script src="/jquery-3.4.1/js/jquery.min.js" type="application/javascript"></script>
     <script src="/bootstrap-3.3.7/js/bootstrap.min.js" type="application/javascript"></script>
     <script src="/js/comment.js" type="application/javascript"></script>
+    <script src="/editor.md-1.5.0/editormd.js"></script>
+    <script src="/editor.md-1.5.0/lib/marked.min.js"></script>
+    <script src="/editor.md-1.5.0/lib/prettify.min.js"></script>
 </head>
 <body>
 <div th:replace="common/nav::nav"></div>
@@ -26,9 +30,14 @@
                     </div>
                     <hr/>
                     <div class="col-lg-12 col-md-12 col-xs-12 media-body">
-                        <h4 class="media-heading" th:text="${question.getTitle()}">怎么快速学会springboot</h4>
-                        <div th:text="${question.getDescription()}">可以好好学习依稀艾伦秀</div>
-                        <br><br>
+                        <div id="desc-markdown-view">
+                            <textarea style="display:none;" th:text="${question.getDescription()}">### Hello world!</textarea>
+                        </div>
+                        <script type="text/javascript">
+                            $(function() {
+                                editormd.markdownToHTML("desc-markdown-view", {});
+                            });
+                        </script>
                     </div>
                     <div th:if="${session.user !=null and question.creator==session.user.id}"
                          class="col-lg-12 col-md-12 col-xs-12 ">
