@@ -8,38 +8,90 @@
     <link rel="stylesheet" href="/css/community.css">
     <script src="/jquery-3.4.1/js/jquery.min.js" type="application/javascript"></script>
     <script src="/bootstrap-3.3.7/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/comment.js" type="application/javascript"></script>
 </head>
 <body>
-<div  th:replace="common/nav::nav"></div>
+<div th:replace="common/nav::nav"></div>
 
 <div>
     <div class="container-fluid" style="margin: 10px">
-        <div class="row" >
+        <div class="row">
             <div class="col-lg-9 col-md-12 col-xs-12">
-                <h4 class="media-heading " style="margin: 20px auto" th:text="${question.getTitle()}">怎么快速学会springboot</h4>
-                <div class="my_graytext" th:text="${question.getCommentCount()}+'个回复,'+${question.getViewCount()}+'次浏览,发布时间:'+${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"> 2个回复,31次浏览,1小时前</div>
-                <hr/>
-                <div class="col-lg-12 col-md-12 col-xs-12 media-body">
-                    <!--<h4 class="media-heading" th:text="${question.getTitle()}">怎么快速学会springboot</h4>-->
-                    <div th:text="${question.getDescription()}">可以好好学习依稀艾伦秀</div><br><br>
-                </div>
-                <div th:if="${session.user !=null and question.creator==session.user.id}" class="col-lg-12 col-md-12 col-xs-12 ">
-                <hr/>
-                    <span class="glyphicon glyphicon-pencil"></span>
-                    <a  th:href="@{'/question/publish/'+${question.id}}" > 编辑</a>
+                <div class="col-lg-12 col-md-12 col-xs-12">
+                    <h4 class="media-heading " style="margin: 20px auto" th:text="${question.getTitle()}">
+                        怎么快速学会springboot</h4>
+                    <div class="my_graytext"
+                         th:text="${question.getCommentCount()}+'个回复,'+${question.getViewCount()}+'次浏览,发布时间:'+${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}">
+                        2个回复,31次浏览,1小时前
+                    </div>
+                    <hr/>
+                    <div class="col-lg-12 col-md-12 col-xs-12 media-body">
+                        <h4 class="media-heading" th:text="${question.getTitle()}">怎么快速学会springboot</h4>
+                        <div th:text="${question.getDescription()}">可以好好学习依稀艾伦秀</div>
+                        <br><br>
+                    </div>
+                    <div th:if="${session.user !=null and question.creator==session.user.id}"
+                         class="col-lg-12 col-md-12 col-xs-12 ">
+                        <hr/>
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <a th:href="@{'/question/publish/'+${question.id}}"> 编辑</a>
+                    </div>
+                    <br><br>
+                    <!--回复-->
+                    <div class="col-lg-12 col-md-12 col-xs-12 ">
+                        <form>
+                            <div class="col-lg-12 col-md-12 col-xs-12 ">
+                                <input id="parentId" name="parentId" hidden="hidden" th:value="${question.id}"/>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-xs-12 " >
+                                <h3>回复:</h3>
+                                <div class="col-lg-12 col-md-12 col-xs-12" >
+                                    <textarea id="comment_content" rows="5" class="form-control my-margin-10"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-xs-12 my-margin-10 ">
+                                <button type="submit" class="btn btn-success btn-addcomment my-text-center"
+                                        onclick="addcomment()">
+                                    提交
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                    <!--回复列表-->
+                    <div class="col-lg-12 col-md-12 col-xs-12 ">
+                        <h3 th:text="${comments==null?0:comments.count}+'个回复'">0个回复:</h3>
+                        <div class="media" th:each="comment:${comments.list}">
+                            <!--<div class="media-left media-middle">-->
+                            <!--<a href="#">-->
+                            <!--<img class="media-object" id="my-avatarUrl"  src="https://avatars2.githubusercontent.com/u/26165564?v=4" th:src="${comment.getAvatarUrl()}">-->
+                            <!--</a>-->
+                            <!--</div>-->
+                            <div class="media-body">
+                                <div th:text="${comment.content}">可以好好学习依稀艾伦秀</div>
+                                <div class="my_graytext"
+                                     th:text="'发布时间:'+${#dates.format(comment.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"> 1小时前
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
+
             </div>
+            <!--右边栏-->
             <div class="col-lg-3 col-md-12 col-xs-12">
                 <h3>提问者</h3>
                 <div class="media" id="question-right">
                     <div class="media-left media-middle">
                         <a href="#">
-                            <img class="media-object" id="my-avatarUrl"  src="https://avatars2.githubusercontent.com/u/26165564?v=4" th:src="${quser.avatarUrl}">
+                            <img class="media-object" id="my-avatarUrl"
+                                 src="https://avatars2.githubusercontent.com/u/26165564?v=4"
+                                 th:src="${quser.avatarUrl}">
                         </a>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading" >
+                        <h4 class="media-heading">
                             <a th:href="@{'/question/'+${question.id}}" th:text="${quser.name}"></a></h4>
                     </div>
                 </div>
