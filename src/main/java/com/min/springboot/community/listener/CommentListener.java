@@ -12,11 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-<<<<<<< HEAD
-=======
-import javax.jws.soap.SOAPBinding;
-
->>>>>>> 4458c1f39d53013d5fda252522552673c81c7d01
 /**
  * 流程
  * 1.定义一个事件CommentPublishEvent(回复发布事件)**需要继承ApplicationEvent
